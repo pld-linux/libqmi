@@ -2,12 +2,12 @@
 #
 # Conditional build:
 %bcond_without	apidocs		# do not build and package API docs
-#
+
 Summary:	GLib library for talking to WWAN modems and devices using QMI protocol
 Summary(pl.UTF-8):	Biblioteka GLib do komunikacji z modemami i urządzeniami WWAN z użyciem protokołu QMI
 Name:		libqmi
 Version:	1.12.6
-Release:	1
+Release:	2
 License:	LGPL v2+
 Group:		Libraries
 Source0:	http://www.freedesktop.org/software/libqmi/%{name}-%{version}.tar.xz
@@ -61,6 +61,9 @@ Summary:	libqmi API documentation
 Summary(pl.UTF-8):	Dokumentacja API biblioteki libqmi
 Group:		Documentation
 Requires:	gtk-doc-common
+%if "%{_rpmversion}" >= "5"
+BuildArch:	noarch
+%endif
 
 %description apidocs
 API documentation for libqmi library.
