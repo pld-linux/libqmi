@@ -6,12 +6,12 @@
 Summary:	GLib library for talking to WWAN modems and devices using QMI protocol
 Summary(pl.UTF-8):	Biblioteka GLib do komunikacji z modemami i urządzeniami WWAN z użyciem protokołu QMI
 Name:		libqmi
-Version:	1.12.8
+Version:	1.14.2
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
 Source0:	https://www.freedesktop.org/software/libqmi/%{name}-%{version}.tar.xz
-# Source0-md5:	fcad1a581ee9df8de5a753616dc27adf
+# Source0-md5:	6ec55d1a1941bb18802ab8498baca7e0
 URL:		https://www.freedesktop.org/wiki/Software/libqmi/
 BuildRequires:	autoconf >= 2.68
 BuildRequires:	automake >= 1:1.11
@@ -20,6 +20,7 @@ BuildRequires:	gtk-doc >= 1.0
 BuildRequires:	help2man
 BuildRequires:	libtool >= 2:2.2
 BuildRequires:	pkgconfig
+BuildRequires:	rpmbuild(macros) >= 1.673
 Requires:	glib2 >= 1:2.32.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -71,6 +72,19 @@ API documentation for libqmi library.
 %description apidocs -l pl.UTF-8
 Dokumentacja API biblioteki libqmi.
 
+%package -n bash-completion-libqmi
+Summary:	Bash completion for qmictl command
+Summary(pl.UTF-8):	Bashowe dopełnianie składni polecenia qmictl
+Group:		Applications/Shells
+Requires:	%{name} = %{version}-%{release}
+Requires:	bash-completion >= 2.0
+
+%description -n bash-completion-libqmi
+Bash completion for qmictl command.
+
+%description -n bash-completion-libqmi -l pl.UTF-8
+Bashowe dopełnianie składni polecenia qmictl.
+
 %prep
 %setup -q
 
@@ -106,7 +120,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/qmi-network
 %attr(755,root,root) %{_bindir}/qmicli
 %attr(755,root,root) %{_libdir}/libqmi-glib.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libqmi-glib.so.1
+%attr(755,root,root) %ghost %{_libdir}/libqmi-glib.so.5
 %attr(755,root,root) %{_libexecdir}/qmi-proxy
 %{_mandir}/man1/qmi-network.1*
 %{_mandir}/man1/qmicli.1*
@@ -126,3 +140,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %{_gtkdocdir}/libqmi-glib
 %endif
+
+%files -n bash-completion-libqmi
+%defattr(644,root,root,755)
+%{bash_compdir}/qmicli
