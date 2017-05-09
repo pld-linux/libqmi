@@ -6,24 +6,26 @@
 Summary:	GLib library for talking to WWAN modems and devices using QMI protocol
 Summary(pl.UTF-8):	Biblioteka GLib do komunikacji z modemami i urządzeniami WWAN z użyciem protokołu QMI
 Name:		libqmi
-Version:	1.16.2
+Version:	1.18.0
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
 Source0:	https://www.freedesktop.org/software/libqmi/%{name}-%{version}.tar.xz
-# Source0-md5:	052318439128e428b1a41e75a605d91f
+# Source0-md5:	25bae4e383ad77f491ad49b49e04fdcf
 URL:		https://www.freedesktop.org/wiki/Software/libqmi/
 BuildRequires:	autoconf >= 2.68
 BuildRequires:	automake >= 1:1.11
-BuildRequires:	glib2-devel >= 1:2.32.0
+BuildRequires:	glib2-devel >= 1:2.36
 BuildRequires:	gtk-doc >= 1.0
 BuildRequires:	help2man
 BuildRequires:	libmbim-devel >= 1.14.0
 BuildRequires:	libtool >= 2:2.2
 BuildRequires:	pkgconfig
 BuildRequires:	rpmbuild(macros) >= 1.673
-Requires:	glib2 >= 1:2.32.0
+BuildRequires:	udev-glib-devel >= 1:147
+Requires:	glib2 >= 1:2.36
 Requires:	libmbim >= 1.14.0
+Requires:	udev-glib >= 1:147
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -39,7 +41,7 @@ Summary:	Header files for libqmi library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki libqmi
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	glib2-devel >= 1:2.32.0
+Requires:	glib2-devel >= 1:2.36
 
 %description devel
 Header files for libqmi library.
@@ -119,11 +121,13 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc AUTHORS NEWS README TODO
+%attr(755,root,root) %{_bindir}/qmi-firmware-update
 %attr(755,root,root) %{_bindir}/qmi-network
 %attr(755,root,root) %{_bindir}/qmicli
 %attr(755,root,root) %{_libdir}/libqmi-glib.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libqmi-glib.so.5
 %attr(755,root,root) %{_libexecdir}/qmi-proxy
+%{_mandir}/man1/qmi-firmware-update.1*
 %{_mandir}/man1/qmi-network.1*
 %{_mandir}/man1/qmicli.1*
 
