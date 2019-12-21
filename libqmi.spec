@@ -6,12 +6,12 @@
 Summary:	GLib library for talking to WWAN modems and devices using QMI protocol
 Summary(pl.UTF-8):	Biblioteka GLib do komunikacji z modemami i urządzeniami WWAN z użyciem protokołu QMI
 Name:		libqmi
-Version:	1.24.0
+Version:	1.24.2
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
 Source0:	https://www.freedesktop.org/software/libqmi/%{name}-%{version}.tar.xz
-# Source0-md5:	4b181c0a8b933226ce3dce09565fe8f8
+# Source0-md5:	e49c419112d708b5301af7ccc2c090ff
 URL:		https://www.freedesktop.org/wiki/Software/libqmi/
 BuildRequires:	autoconf >= 2.68
 BuildRequires:	automake >= 1:1.11
@@ -45,6 +45,7 @@ Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki libqmi
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	glib2-devel >= 1:2.36
+Requires:	libmbim-devel >= 1.18.0
 
 %description devel
 Header files for libqmi library.
