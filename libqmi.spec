@@ -6,27 +6,30 @@
 Summary:	GLib library for talking to WWAN modems and devices using QMI protocol
 Summary(pl.UTF-8):	Biblioteka GLib do komunikacji z modemami i urządzeniami WWAN z użyciem protokołu QMI
 Name:		libqmi
-Version:	1.24.12
+Version:	1.26.0
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
 Source0:	https://www.freedesktop.org/software/libqmi/%{name}-%{version}.tar.xz
-# Source0-md5:	7e6e49fddb9ae2b6fcde14619d6cfe49
+# Source0-md5:	8da95a97e893311878f8ce12dcf8fad0
 URL:		https://www.freedesktop.org/wiki/Software/libqmi/
 BuildRequires:	autoconf >= 2.68
+BuildRequires:	autoconf-archive >= 2017.03.21
 BuildRequires:	automake >= 1:1.11
-BuildRequires:	glib2-devel >= 1:2.36
+BuildRequires:	glib2-devel >= 1:2.48
 %if %(locale -a | grep -q '^C\.utf8$'; echo $?)
 BuildRequires:	glibc-localedb-all
 %endif
+BuildRequires:	gobject-introspection-devel >= 0.9.6
 BuildRequires:	gtk-doc >= 1.0
 BuildRequires:	help2man
 BuildRequires:	libmbim-devel >= 1.18.0
+BuildRequires:	linux-libc-headers >= 7:4.15
 BuildRequires:	libtool >= 2:2.2
 BuildRequires:	pkgconfig
 BuildRequires:	rpmbuild(macros) >= 1.673
 BuildRequires:	udev-glib-devel >= 1:147
-Requires:	glib2 >= 1:2.36
+Requires:	glib2 >= 1:2.48
 Requires:	libmbim >= 1.18.0
 Requires:	udev-glib >= 1:147
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -44,7 +47,7 @@ Summary:	Header files for libqmi library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki libqmi
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	glib2-devel >= 1:2.36
+Requires:	glib2-devel >= 1:2.48
 Requires:	libmbim-devel >= 1.18.0
 
 %description devel
@@ -107,6 +110,7 @@ Bashowe dopełnianie składni polecenia qmictl.
 %{__automake}
 %configure \
 	%{__enable_disable apidocs gtk-doc} \
+	--enable-qrtr \
 	--disable-silent-rules \
 	--with-html-dir=%{_gtkdocdir}
 
@@ -135,6 +139,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/qmicli
 %attr(755,root,root) %{_libdir}/libqmi-glib.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libqmi-glib.so.5
+%{_libdir}/girepository-1.0/Qmi-1.0.typelib
+%{_libdir}/girepository-1.0/Qrtr-1.0.typelib
 %attr(755,root,root) %{_libexecdir}/qmi-proxy
 %{_mandir}/man1/qmi-firmware-update.1*
 %{_mandir}/man1/qmi-network.1*
@@ -144,6 +150,8 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libqmi-glib.so
 %{_includedir}/libqmi-glib
+%{_datadir}/gir-1.0/Qmi-1.0.gir
+%{_datadir}/gir-1.0/Qrtr-1.0.gir
 %{_pkgconfigdir}/qmi-glib.pc
 
 %files static
