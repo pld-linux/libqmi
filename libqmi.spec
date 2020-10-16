@@ -6,12 +6,12 @@
 Summary:	GLib library for talking to WWAN modems and devices using QMI protocol
 Summary(pl.UTF-8):	Biblioteka GLib do komunikacji z modemami i urządzeniami WWAN z użyciem protokołu QMI
 Name:		libqmi
-Version:	1.26.4
+Version:	1.26.6
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
 Source0:	https://www.freedesktop.org/software/libqmi/%{name}-%{version}.tar.xz
-# Source0-md5:	1531166484a6ba5de902e22b8af4f950
+# Source0-md5:	e444e5a5176e1ec763c0bfaa74b93997
 URL:		https://www.freedesktop.org/wiki/Software/libqmi/
 BuildRequires:	autoconf >= 2.68
 BuildRequires:	autoconf-archive >= 2017.03.21
@@ -27,7 +27,7 @@ BuildRequires:	libmbim-devel >= 1.18.0
 BuildRequires:	linux-libc-headers >= 7:4.15
 BuildRequires:	libtool >= 2:2.2
 BuildRequires:	pkgconfig
-BuildRequires:	rpmbuild(macros) >= 1.673
+BuildRequires:	rpmbuild(macros) >= 1.752
 BuildRequires:	udev-glib-devel >= 1:147
 Requires:	glib2 >= 1:2.48
 Requires:	libmbim >= 1.18.0
@@ -73,9 +73,7 @@ Summary:	libqmi API documentation
 Summary(pl.UTF-8):	Dokumentacja API biblioteki libqmi
 Group:		Documentation
 Requires:	gtk-doc-common
-%if "%{_rpmversion}" >= "4.6"
-BuildArch:	noarch
-%endif
+%{?noarchpackage}
 
 %description apidocs
 API documentation for libqmi library.
@@ -89,9 +87,7 @@ Summary(pl.UTF-8):	Bashowe dopełnianie składni polecenia qmictl
 Group:		Applications/Shells
 Requires:	%{name} = %{version}-%{release}
 Requires:	bash-completion >= 2.0
-%if "%{_rpmversion}" >= "4.6"
-BuildArch:	noarch
-%endif
+%{?noarchpackage}
 
 %description -n bash-completion-libqmi
 Bash completion for qmictl command.
