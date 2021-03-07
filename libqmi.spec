@@ -73,7 +73,7 @@ Summary:	libqmi API documentation
 Summary(pl.UTF-8):	Dokumentacja API biblioteki libqmi
 Group:		Documentation
 Requires:	gtk-doc-common
-%{?noarchpackage}
+BuildArch:	noarch
 
 %description apidocs
 API documentation for libqmi library.
@@ -87,7 +87,7 @@ Summary(pl.UTF-8):	Bashowe dopełnianie składni polecenia qmictl
 Group:		Applications/Shells
 Requires:	%{name} = %{version}-%{release}
 Requires:	bash-completion >= 2.0
-%{?noarchpackage}
+BuildArch:	noarch
 
 %description -n bash-completion-libqmi
 Bash completion for qmictl command.
