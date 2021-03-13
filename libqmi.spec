@@ -6,12 +6,12 @@
 Summary:	GLib library for talking to WWAN modems and devices using QMI protocol
 Summary(pl.UTF-8):	Biblioteka GLib do komunikacji z modemami i urządzeniami WWAN z użyciem protokołu QMI
 Name:		libqmi
-Version:	1.26.8
+Version:	1.28.2
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
 Source0:	https://www.freedesktop.org/software/libqmi/%{name}-%{version}.tar.xz
-# Source0-md5:	fc04d3894300d54497ec02469c660190
+# Source0-md5:	825d7226e001cb2616e85d8a1e2a410f
 URL:		https://www.freedesktop.org/wiki/Software/libqmi/
 BuildRequires:	autoconf >= 2.68
 BuildRequires:	autoconf-archive >= 2017.03.21
@@ -24,13 +24,16 @@ BuildRequires:	gobject-introspection-devel >= 0.9.6
 BuildRequires:	gtk-doc >= 1.0
 BuildRequires:	help2man
 BuildRequires:	libmbim-devel >= 1.18.0
+BuildRequires:	libqrtr-glib-devel >= 1.0.0
 BuildRequires:	linux-libc-headers >= 7:4.15
 BuildRequires:	libtool >= 2:2.2
 BuildRequires:	pkgconfig
+BuildRequires:	rpm-build >= 4.6
 BuildRequires:	rpmbuild(macros) >= 1.752
 BuildRequires:	udev-glib-devel >= 1:147
 Requires:	glib2 >= 1:2.48
 Requires:	libmbim >= 1.18.0
+Requires:	libqrtr-glib >= 1.0.0
 Requires:	udev-glib >= 1:147
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -49,6 +52,7 @@ Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	glib2-devel >= 1:2.48
 Requires:	libmbim-devel >= 1.18.0
+Requires:	libqrtr-glib-devel >= 1.0.0
 
 %description devel
 Header files for libqmi library.
@@ -136,7 +140,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libqmi-glib.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libqmi-glib.so.5
 %{_libdir}/girepository-1.0/Qmi-1.0.typelib
-%{_libdir}/girepository-1.0/Qrtr-1.0.typelib
 %attr(755,root,root) %{_libexecdir}/qmi-proxy
 %{_mandir}/man1/qmi-firmware-update.1*
 %{_mandir}/man1/qmi-network.1*
@@ -147,7 +150,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libqmi-glib.so
 %{_includedir}/libqmi-glib
 %{_datadir}/gir-1.0/Qmi-1.0.gir
-%{_datadir}/gir-1.0/Qrtr-1.0.gir
 %{_pkgconfigdir}/qmi-glib.pc
 
 %files static
