@@ -1,20 +1,19 @@
-# TODO: --enable-qmi-username=???
+# TODO: -Dqmi_username=???
 #
 # Conditional build:
-%bcond_without	apidocs		# do not build and package API docs
+%bcond_without	apidocs	# (gtk-doc based) API documentation
 
 Summary:	GLib library for talking to WWAN modems and devices using QMI protocol
 Summary(pl.UTF-8):	Biblioteka GLib do komunikacji z modemami i urządzeniami WWAN z użyciem protokołu QMI
 Name:		libqmi
-Version:	1.30.8
+Version:	1.32.4
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
-Source0:	https://www.freedesktop.org/software/libqmi/%{name}-%{version}.tar.xz
-# Source0-md5:	5ec8838914f80e1dfa4d2fa8cc2f186d
+#Source0Download: https://gitlab.freedesktop.org/mobile-broadband/libqmi/-/tags
+Source0:	https://gitlab.freedesktop.org/mobile-broadband/libqmi/-/archive/%{version}/%{name}-%{version}.tar.bz2
+# Source0-md5:	c062cba26c2fca75d0a49ba48557f198
 URL:		https://www.freedesktop.org/wiki/Software/libqmi/
-BuildRequires:	autoconf >= 2.68
-BuildRequires:	automake >= 1:1.11
 BuildRequires:	glib2-devel >= 1:2.56
 %if %(locale -a | grep -q '^C\.utf8$'; echo $?)
 BuildRequires:	glibc-localedb-all
@@ -26,7 +25,8 @@ BuildRequires:	libgudev-devel >= 232
 BuildRequires:	libmbim-devel >= 1.18.0
 BuildRequires:	libqrtr-glib-devel >= 1.0.0
 BuildRequires:	linux-libc-headers >= 7:4.15
-BuildRequires:	libtool >= 2:2.2
+BuildRequires:	meson >= 0.53.0
+BuildRequires:	ninja >= 1.5
 BuildRequires:	pkgconfig
 BuildRequires:	rpm-build >= 4.6
 BuildRequires:	rpmbuild(macros) >= 1.752
@@ -89,7 +89,7 @@ Summary:	Bash completion for qmictl command
 Summary(pl.UTF-8):	Bashowe dopełnianie składni polecenia qmictl
 Group:		Applications/Shells
 Requires:	%{name} = %{version}-%{release}
-Requires:	bash-completion >= 2.0
+Requires:	bash-completion >= 1:2.0
 BuildArch:	noarch
 
 %description -n bash-completion-libqmi
@@ -102,27 +102,15 @@ Bashowe dopełnianie składni polecenia qmictl.
 %setup -q
 
 %build
-%{__libtoolize}
-%{__aclocal} -I m4
-%{__autoconf}
-%{__autoheader}
-%{__automake}
-%configure \
-	%{__enable_disable apidocs gtk-doc} \
-	--enable-qrtr \
-	--disable-silent-rules \
-	--with-html-dir=%{_gtkdocdir}
+%meson build \
+	%{?with_apidocs:-Dgtk_doc=true}
 
-LC_ALL=C.UTF-8 \
-%{__make}
+%ninja_build -C build
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT
-
-%{__rm} $RPM_BUILD_ROOT%{_libdir}/*.la
+%ninja_install -C build
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -132,7 +120,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc AUTHORS NEWS README TODO
+%doc AUTHORS NEWS README.md TODO
 %attr(755,root,root) %{_bindir}/qmi-firmware-update
 %attr(755,root,root) %{_bindir}/qmi-network
 %attr(755,root,root) %{_bindir}/qmicli
