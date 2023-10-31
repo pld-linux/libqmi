@@ -14,6 +14,7 @@ Group:		Libraries
 Source0:	https://gitlab.freedesktop.org/mobile-broadband/libqmi/-/archive/%{version}/%{name}-%{version}.tar.bz2
 # Source0-md5:	677b5d1ab763a7b7285b82d1798ff93d
 URL:		https://www.freedesktop.org/wiki/Software/libqmi/
+BuildRequires:	bash-completion-devel >= 1:2.0
 BuildRequires:	glib2-devel >= 1:2.56
 %if %(locale -a | grep -q '^C\.utf8$'; echo $?)
 BuildRequires:	glibc-localedb-all
