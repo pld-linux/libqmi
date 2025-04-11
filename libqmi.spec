@@ -6,13 +6,13 @@
 Summary:	GLib library for talking to WWAN modems and devices using QMI protocol
 Summary(pl.UTF-8):	Biblioteka GLib do komunikacji z modemami i urządzeniami WWAN z użyciem protokołu QMI
 Name:		libqmi
-Version:	1.34.0
+Version:	1.36.0
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
 #Source0Download: https://gitlab.freedesktop.org/mobile-broadband/libqmi/-/tags
 Source0:	https://gitlab.freedesktop.org/mobile-broadband/libqmi/-/archive/%{version}/%{name}-%{version}.tar.bz2
-# Source0-md5:	677b5d1ab763a7b7285b82d1798ff93d
+# Source0-md5:	e140fa38a1def3038af891c8f15b705b
 URL:		https://www.freedesktop.org/wiki/Software/libqmi/
 BuildRequires:	bash-completion-devel >= 1:2.0
 BuildRequires:	glib2-devel >= 1:2.56
@@ -30,7 +30,7 @@ BuildRequires:	meson >= 0.53.0
 BuildRequires:	ninja >= 1.5
 BuildRequires:	pkgconfig
 BuildRequires:	rpm-build >= 4.6
-BuildRequires:	rpmbuild(macros) >= 1.752
+BuildRequires:	rpmbuild(macros) >= 2.042
 Requires:	glib2 >= 1:2.56
 Requires:	libgudev >= 232
 Requires:	libmbim >= 1.18.0
@@ -103,15 +103,15 @@ Bashowe dopełnianie składni polecenia qmictl.
 %setup -q
 
 %build
-%meson build \
+%meson \
 	%{?with_apidocs:-Dgtk_doc=true}
 
-%ninja_build -C build
+%meson_build
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%ninja_install -C build
+%meson_install
 
 %clean
 rm -rf $RPM_BUILD_ROOT
